@@ -1,16 +1,31 @@
+import { StatisticLine } from "./StatisticLine";
+
 /* eslint-disable react/prop-types */
-export const Statistics = ({props}) => {
+// fuck tables all my homies use divs
+export const Statistics = ({ props }) => {
   return (
     <div>
-        <p>Statistics</p>
-        <div>
-          <p>Good: {props.good}</p>
-          <p>Neutral: {props.neutral}</p>
-          <p>Bad: {props.bad}</p>
-          <p>All: {props.all ? props.all : 0}</p>
-          <p>Average: {props.average ? props.average : 0}</p>
-          <p>Positive: {props.positive ? props.positive : 0}%</p>
-        </div>
-      </div>
-  )
-}
+      {props.statistics.grades.map((item) => {
+        return (
+          <StatisticLine name={item.name} value={item.value} key={item.name} />
+        );
+      })}
+
+      {props.feedback ? (
+        <>
+          {props.statistics.calcResults.map((item) => {
+            return (
+              <StatisticLine
+                name={item.name}
+                value={item.value}
+                key={item.name}
+              />
+            );
+          })}
+        </>
+      ) : (
+        <>No feedback given</>
+      )}
+    </div>
+  );
+};
