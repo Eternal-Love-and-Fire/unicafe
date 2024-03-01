@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "./components";
+import { Button, Statistics } from "./components";
 
 export const App = () => {
   const [good, setGood] = useState(0);
@@ -8,6 +8,15 @@ export const App = () => {
   const all =  good + neutral + bad;
   const average = (good - bad) / all;
   const positive = (good / all) * 100;
+
+  const statistics = {
+    good,
+    neutral,
+    bad,
+    all,
+    average,
+    positive
+  }
   return (
     <div>
       <div>
@@ -18,18 +27,7 @@ export const App = () => {
           <Button onClick={() => setBad(bad + 1)} name="bad" />
         </div>
       </div>
-
-      <div>
-        <p>Statistics</p>
-        <div>
-          <p>Good: {good}</p>
-          <p>Neutral: {neutral}</p>
-          <p>Bad: {bad}</p>
-          <p>All: {all ? all : 0}</p>
-          <p>Average: {average ? average : 0}</p>
-          <p>Positive: {positive ? positive : 0}%</p>
-        </div>
-      </div>
+      <Statistics props={statistics}/>
     </div>
   );
 };
